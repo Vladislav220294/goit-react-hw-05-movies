@@ -1,11 +1,11 @@
 import { Route, Switch } from 'react-router-dom';
-import Cast from './components/Cast/Cast';
+// import Cast from './components/Cast/Cast';
 import HomePage from './components/HomePage/HomePage';
 import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
 import MoviesPage from './components/MoviesPage/MoviesPage';
 import Navigation from './components/Navigation/Navigation';
 import NotFound from './components/NotFound/NotFound';
-import Reviews from './components/Reviews/Reviews';
+// import Reviews from './components/Reviews/Reviews';
 
 export const App = () => {
   return (
@@ -15,18 +15,13 @@ export const App = () => {
         <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path="/movies">
+        <Route path="/movies" exact>
           <MoviesPage />
         </Route>
         <Route path="/movies/:movieId">
           <MovieDetailsPage />
         </Route>
-        <Route path="/movies/:movieId/cast">
-          <Cast />
-        </Route>
-        <Route path="/movies/:movieId/reviews">
-          <Reviews />
-        </Route>
+        
         <Route>
           <NotFound />
         </Route>
