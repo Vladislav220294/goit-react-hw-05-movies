@@ -1,10 +1,5 @@
 import { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import HomePage from './components/HomePage/HomePage';
-// import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
-// import MoviesPage from './components/MoviesPage/MoviesPage';
-// import Navigation from './components/Navigation/Navigation';
-// import NotFound from './components/NotFound/NotFound';
 
 const HomePage = lazy(() => import('./components/HomePage/HomePage'));
 const MoviesPage = lazy(() => import('./components/MoviesPage/MoviesPage'));
