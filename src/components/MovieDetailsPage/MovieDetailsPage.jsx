@@ -47,7 +47,7 @@ const MovieDetailsPage = () => {
                 alt=""
               />
             </div>
-            <div>
+            <div style={{maxWidth: "800px"}}>
               <h2>{movie.title}</h2>
               <p>User scores: {+movie.vote_average * 10}%</p>
               <h3>Overview</h3>

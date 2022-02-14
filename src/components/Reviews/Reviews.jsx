@@ -11,7 +11,7 @@ const Reviews = ({ movieId }) => {
   }, [movieId]);
 
   return (
-    <>
+    <> 
       {reviews && reviews.results.length !== 0 ? (
         reviews.results.map(review => (
           <li key={review.id}>
@@ -19,9 +19,9 @@ const Reviews = ({ movieId }) => {
             <p>{review.content}</p>
           </li>
         ))
-      ) : (
-        <h3>We dont have any reviews for this movie</h3>
-      )}
+      ) : (<></>)}
+      {reviews && reviews.results.length === 0 && <h3>We dont have any reviews for this movie</h3>}  
+      
     </>
   );
 };

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as Fetch from '../../Fetch';
-
 const MoviesPage = () => {
   const [inputValue, setSearch] = useState('');
   const [movies, setMovies] = useState(null);
