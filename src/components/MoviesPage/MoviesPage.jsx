@@ -12,7 +12,7 @@ const MoviesPage = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         if (inputValue.trim() === '') { return };
-        Fetch.fetchMovieByName(inputValue).then(setMovies)
+        Fetch.fetchMovieByName(inputValue).then(setMovies).catch(error => console.log(error));
         setSearch('')
     }
     return (<>

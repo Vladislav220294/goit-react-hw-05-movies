@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
 import { useParams, useRouteMatch, Route, NavLink,  Link } from "react-router-dom";
 import * as Fetch from '../../Fetch'
-import Credits from "../Credits/Credits";
-import Reviews from "../Reviews/Reviews";
+// import Credits from "../Credits/Credits";
+// import Reviews from "../Reviews/Reviews";
 
-
+const Credits = lazy(() => import('../Credits/Credits'));
+const Reviews = lazy(() => import('../Reviews/Reviews'));
 
 const MovieDetailsPage = () => {
     const { movieId } = useParams();
@@ -12,7 +13,7 @@ const MovieDetailsPage = () => {
     const { url } = useRouteMatch();
 
     useEffect(() => {
-    Fetch.fetchMovieByDetails(movieId).then(setMovie)
+    Fetch.fetchMovieByDetails(movieId).then(setMovie).catch(error => console.log(error))
 }, [movieId])
 
     return (<>

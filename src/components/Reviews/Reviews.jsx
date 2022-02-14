@@ -4,7 +4,7 @@ import * as Fetch from '../../Fetch'
 const Reviews = ({movieId}) => {
     const [reviews, setReviews] = useState(null);
     useEffect(() => {
-     Fetch.fetchMovieByReviews(movieId).then(setReviews)  
+     Fetch.fetchMovieByReviews(movieId).then(setReviews).catch(error => console.log(error))  
     }, [movieId])
 
     return (<>{reviews && reviews.results.length !== 0   ? 

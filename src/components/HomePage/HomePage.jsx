@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import {Link, useRouteMatch} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import * as Fetch from '../../Fetch'
 
 const HomePage = () => {
     const [movies, setMovies] = useState(null);
-    // const {url} = useRouteMatch()
+    
     useEffect(() => {
-Fetch.fetchTrendingMovies().then(setMovies) 
+Fetch.fetchTrendingMovies().then(setMovies).catch(error => console.log(error)) 
     }, [])
 
     return (<> <h2>Trending today</h2>
