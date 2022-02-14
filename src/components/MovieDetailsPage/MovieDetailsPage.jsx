@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams, useMatch, Route, NavLink } from "react-router-dom";
+import { useParams, useRouteMatch, Route, NavLink,  Link } from "react-router-dom";
 import * as Fetch from '../../Fetch'
-import Cast from "../Cast/Cast";
+import Credits from "../Credits/Credits";
 import Reviews from "../Reviews/Reviews";
 
 
@@ -9,7 +9,7 @@ import Reviews from "../Reviews/Reviews";
 const MovieDetailsPage = () => {
     const { movieId } = useParams();
     const [movie, setMovie] = useState(null);
-    const { url } = useMatch();
+    const { url } = useRouteMatch();
 
     useEffect(() => {
     Fetch.fetchMovieByDetails(movieId).then(setMovie)
@@ -17,17 +17,19 @@ const MovieDetailsPage = () => {
 
     return (<>
         {movie && <>
-            <button type="button">Go back</button>
-            <div key={movieId}>
-                <img src={movie.backdrop_path} alt={movie.title} />
+            <Link to={'/'} style={{margin: "10px", display: "block", width: "80px", textDecoration: "none", backgroundColor: "brown", color: "black", borderRadius: "5px" }}>Go back</Link>
+            <div key={movieId} style={{ display: "flex" }}>
+                <div style={{margin: "10px"}}>
+                    <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt='' /></div>
+                <div>
                 <h2>{movie.title}</h2>
-                <p>User scores: {+movie.vote_average * 100}%</p>
+                <p>User scores: {+movie.vote_average * 10}%</p>
                 
                 <h3>Overview</h3>
                 <p>{movie.overview}</p>
                 <h3>Genres</h3>
                 <p>{movie.genres[0].name}</p>
-                
+                </div>
             </div>
             <hr />
             <h3>Additional information</h3>
@@ -36,8 +38,8 @@ const MovieDetailsPage = () => {
                 <li><NavLink to={`${url}/reviews`}>Reviews</NavLink></li>
             </ul>
             <hr />
-            {movie && <Route path='/movies/:movieId/credits'><Cast movieId={movieId}/></Route>}
-            {movie && <Route path='/movies/:movieId/reviews'><Reviews movieId={movieId}/></Route>}
+            {movie && <Route path={`${url}/credits`}><Credits movieId={movieId}/></Route>}
+            {movie && <Route path={`${url}/reviews`}><Reviews movieId={movieId}/></Route>}
         </>}
     </>  );
 }

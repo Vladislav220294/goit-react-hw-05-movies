@@ -11,7 +11,7 @@ export const App = () => {
   return (
     <>
       <Navigation />
-      {/* <Switch>
+      <Switch>
         <Route path="/" exact>
           <HomePage />
         </Route>
@@ -21,11 +21,11 @@ export const App = () => {
         <Route path="/movies/:movieId">
           <MovieDetailsPage />
         </Route>
-        
+
         <Route>
           <NotFound />
         </Route>
-      </Switch> */}
+      </Switch>
     </>
   );
 };
