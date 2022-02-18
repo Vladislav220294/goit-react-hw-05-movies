@@ -1,4 +1,5 @@
 import { useEffect, useState, lazy } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   useParams,
   useRouteMatch,
@@ -6,16 +7,22 @@ import {
   NavLink,
   Link,
 } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import * as Fetch from '../../Fetch';
 
 const Credits = lazy(() => import('../Credits/Credits'));
 const Reviews = lazy(() => import('../Reviews/Reviews'));
 
 const MovieDetailsPage = () => {
+  const history = useHistory()
+  const location = useLocation()
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const { url } = useRouteMatch();
 
+  const goBack = () => {
+    history.push(location.state.from)
+  }
   useEffect(() => {
     Fetch.fetchMovieByDetails(movieId)
       .then(setMovie)
@@ -26,8 +33,8 @@ const MovieDetailsPage = () => {
     <>
       {movie && (
         <>
-          <Link
-            to={'/'}
+          <button onClick={goBack}
+            // to={'/'}
             style={{
               margin: '10px',
               display: 'block',
@@ -39,7 +46,7 @@ const MovieDetailsPage = () => {
             }}
           >
             Go back
-          </Link>
+          </button>
           <div key={movieId} style={{ display: 'flex' }}>
             <div style={{ margin: '10px' }}>
               <img
@@ -60,10 +67,10 @@ const MovieDetailsPage = () => {
           <h3>Additional information</h3>
           <ul>
             <li>
-              <NavLink to={`${url}/credits`}>Cast</NavLink>
+              <NavLink to={{pathname:`${url}/credits`, state: {from: location.state?.from || '/'}}}>Cast</NavLink>
             </li>
             <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              <NavLink to={{pathname:`${url}/reviews`, state: {from: location.state?.from || '/'}}}>Reviews</NavLink>
             </li>
           </ul>
           <hr />

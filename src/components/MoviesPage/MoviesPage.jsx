@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import q from 'query-string'
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import * as Fetch from '../../Fetch';
 const MoviesPage = () => {
+  const location = useLocation();
+  const history = useHistory()
+  const {query} = q.parse(location.search)
   const [inputValue, setSearch] = useState('');
   const [movies, setMovies] = useState(null);
   const onSearch = e => {
@@ -13,11 +19,17 @@ const MoviesPage = () => {
     if (inputValue.trim() === '') {
       return;
     }
+    history.push({pathname: '/movies', search: '?query=' + inputValue})
     Fetch.fetchMovieByName(inputValue)
       .then(setMovies)
       .catch(error => console.log(error));
     setSearch('');
   };
+  useEffect(() => {
+   query &&  Fetch.fetchMovieByName(query)
+      .then(setMovies)
+      .catch(error => console.log(error));
+  }, [query])
   return (
     <>
       <form action="" onSubmit={onSubmit}>
@@ -27,7 +39,7 @@ const MoviesPage = () => {
       {movies &&
         movies.results.map(movie => (
           <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <Link to={{ pathname: `/movies/${movie.id}`, state: { from: location}}}>{movie.title}</Link>
           </li>
         ))}
     </>
